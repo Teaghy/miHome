@@ -1,0 +1,12 @@
+@import 'tailwindcss' source(none);
+@source '../';
+@import './tokens.css';
+@import './base.css';
+@import './layout.css';
+@import './devices.css';
+@import './pages.css';
+@import './device-art.css';
+@import './dialogs.css';
+@import './dashboard.css';
+@import './management.css';
+@import './responsive.css';

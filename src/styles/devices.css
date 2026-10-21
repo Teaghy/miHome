@@ -1,0 +1,330 @@
+.devices-section {
+  min-width: 0;
+}
+.section-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 20px 0 4px;
+}
+.section-heading > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-heading h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 18px;
+  font-weight: 600;
+}
+.section-heading h2 > span {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--muted);
+}
+.sync-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 10px;
+  color: var(--muted);
+}
+.list-tools {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.online-filter {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 32px;
+  cursor: pointer;
+}
+.online-filter input {
+  width: 13px;
+  height: 13px;
+  margin: 0;
+}
+.checkbox-art {
+  display: none;
+}
+.sort-control {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+.sort-control select {
+  border: 0;
+  background: none;
+  font-size: 11px;
+  padding: 6px 0;
+}
+.room-chips {
+  display: flex;
+  gap: 28px;
+  align-items: center;
+  white-space: nowrap;
+  overflow-x: auto;
+  scrollbar-width: none;
+  margin: 0 0 16px;
+}
+.room-chips button {
+  font-size: 13px;
+  color: var(--subtle);
+  position: relative;
+  flex-shrink: 0;
+  padding: 12px 0 13px;
+}
+.room-chips button > span {
+  font-size: 10px;
+  color: var(--muted);
+  padding-left: 5px;
+}
+.room-chips button.active {
+  color: var(--ink);
+  font-weight: 600;
+}
+.room-chips button.active::after {
+  content: '';
+  position: absolute;
+  bottom: 1px;
+  left: 0;
+  width: 22px;
+  height: 3px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.device-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 230px), 1fr));
+  gap: 16px;
+}
+.device-card {
+  position: relative;
+  background: var(--surface);
+  padding: 18px 20px 16px;
+  border-radius: 16px;
+  min-width: 0;
+  min-height: 184px;
+  box-shadow: var(--shadow);
+  border: 1px solid transparent;
+  transition:
+    border-color 150ms,
+    box-shadow 150ms,
+    background 150ms;
+}
+.device-card:hover {
+  box-shadow: 0 8px 28px #0000000d;
+  border-color: #00c9a72b;
+}
+.device-card.is-on {
+  background: var(--surface);
+}
+.device-card-top {
+  position: absolute;
+  inset: auto 14px 14px auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 1;
+}
+.device-card-top .status-label {
+  display: none;
+}
+.card-favorite {
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  opacity: 0;
+}
+.device-card:hover .card-favorite,
+.card-favorite:focus-visible,
+.card-favorite.is-favorite {
+  opacity: 1;
+}
+.card-favorite:hover,
+.card-favorite.is-favorite {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+.device-card-body {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+  padding: 0;
+  gap: 8px;
+}
+.device-card-body .device-art {
+  width: 62px;
+  height: 58px;
+  order: 1;
+  margin-top: 4px;
+}
+.device-card-body .appliance-icon {
+  width: 64px;
+  height: 64px;
+}
+.device-text {
+  width: calc(100% - 27px);
+  min-width: 0;
+  order: 0;
+}
+.device-text h3 {
+  font-size: 14px;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+}
+.device-text > span {
+  font-size: 11px;
+  color: var(--muted);
+  display: block;
+  margin-top: 4px;
+}
+.device-text i {
+  padding: 0 5px;
+  font-style: normal;
+}
+.device-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 7px;
+  gap: 8px;
+  min-height: 18px;
+}
+.device-metric {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--subtle);
+  font-size: 11px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: calc(100% - 20px);
+}
+.is-on .device-metric {
+  color: #00a98c;
+}
+.power-button,
+.detail-button {
+  position: absolute;
+  right: 16px;
+  top: 15px;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--surface-soft);
+  color: #adb7b3;
+  display: grid;
+  place-items: center;
+}
+.power-button.is-on {
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+.power-button:hover:enabled {
+  box-shadow: 0 0 0 3px #00c9a70d;
+}
+.power-button > svg {
+  width: 15px;
+  height: 15px;
+}
+.detail-button > svg {
+  width: 14px;
+}
+.device-card.is-offline {
+  opacity: 0.65;
+}
+.device-card.is-offline .device-metric {
+  color: var(--muted);
+}
+.device-card.is-fault .device-metric {
+  color: var(--danger);
+}
+.device-card.is-fault .device-metric::before {
+  content: '';
+  height: 5px;
+  width: 5px;
+  background: var(--danger);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.devices-endnote {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 10px;
+  margin-top: 20px;
+}
+.device-management-tools,
+.camera-page-toolbar,
+.messages-toolbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.filter-selects {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.filter-selects select,
+.detail-page-actions select {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  height: 36px;
+  padding: 0 12px;
+  font-size: 12px;
+  max-width: 240px;
+}
+.view-tabs {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  white-space: nowrap;
+}
+.view-tabs button {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 0;
+  color: var(--muted);
+  font-size: 13px;
+  flex-shrink: 0;
+  border-bottom: 2px solid transparent;
+}
+.view-tabs button.selected {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
+}
+.view-tabs button > span {
+  font-size: 10px;
+}
+.management-grid {
+  margin-top: 25px;
+}
+.detail-expand {
+  margin: 0 0 16px auto;
+}

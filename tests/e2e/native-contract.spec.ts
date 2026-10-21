@@ -1,6 +1,6 @@
 import { expect, test, type Page } from '@playwright/test';
-import { createDemoDetail, createDemoSnapshot } from '../../src/demo';
-import { defaultSettings } from '../../src/domain';
+import { createDemoDetail, createDemoSnapshot } from '../../src/mocks/devices';
+import { defaultSettings } from '../../src/utils/device';
 
 async function mockNative(page: Page, authenticated: boolean, unknownPower = false) {
   const snapshot = createDemoSnapshot();

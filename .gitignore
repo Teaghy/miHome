@@ -5,6 +5,7 @@ src-tauri/target/
 .reference/
 test-results/
 playwright-report/
+.playwright-mcp/
 *.tsbuildinfo
 *.log
 .env

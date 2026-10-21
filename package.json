@@ -15,8 +15,9 @@
     "test:e2e": "playwright test",
     "test:e2e:production": "npm run build && playwright test --config playwright.production.config.ts",
     "check": "tsc -b",
-    "format": "prettier --write src scripts tests *.json *.ts index.html .github/workflows/ci.yml",
-    "format:check": "prettier --check src scripts tests *.json *.ts index.html .github/workflows/ci.yml"
+    "format": "prettier --write src scripts tests docs AGENTS.md README.md *.json *.ts eslint.config.js index.html .github/workflows/ci.yml",
+    "format:check": "prettier --check src scripts tests docs AGENTS.md README.md *.json *.ts eslint.config.js index.html .github/workflows/ci.yml",
+    "lint": "eslint src --max-warnings 0"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.15",
@@ -24,9 +25,11 @@
     "lucide-react": "^0.468.0",
     "qrcode.react": "^4.2.0",
     "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react-dom": "^19.2.0",
+    "react-router-dom": "^7.18.4"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@playwright/test": "^1.56.0",
     "@tailwindcss/vite": "^4.1.0",
     "@tauri-apps/cli": "^2.10.0",
@@ -34,9 +37,14 @@
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.2.0",
     "@vitejs/plugin-react": "^5.0.0",
+    "eslint": "^10.13.0",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "eslint-plugin-react-refresh": "^0.5.7",
+    "globals": "^17.13.0",
     "prettier": "^3.9.10",
     "tailwindcss": "^4.1.0",
     "typescript": "~5.9.3",
+    "typescript-eslint": "^8.72.0",
     "vite": "^7.1.0",
     "vitest": "^3.2.0"
   }

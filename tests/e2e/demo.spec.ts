@@ -1,19 +1,41 @@
 import { expect, test } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('/');
+  await page.goto('/#/devices');
   await expect(page.getByText('你正在探索演示家庭')).toBeVisible();
 });
 
 test('dashboard is explicit about demo data and has no desktop overflow', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  await expect(page.locator('.device-card')).toHaveCount(9);
+  await expect(page.locator('.device-card')).toHaveCount(12);
   await expect(page.getByRole('heading', { name: '我的设备' })).toBeVisible();
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   await page.setViewportSize({ width: 1000, height: 720 });
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   expect(errors).toEqual([]);
+});
+
+test('compact navigation keeps account, settings and device details accessible', async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  const navigation = page.getByRole('navigation', { name: '主导航' });
+  await expect(navigation).toBeInViewport();
+  await page.getByRole('button', { name: '账号信息', exact: true }).click();
+  await expect(page.getByRole('dialog', { name: '你的演示空间' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: '偏好设置', exact: true }).click();
+  await expect(page.getByRole('dialog', { name: '偏好设置' })).toBeVisible();
+  await page.keyboard.press('Escape');
+  await page.getByRole('button', { name: '查看米家智能吸顶灯详情', exact: true }).click();
+  const detail = page.getByRole('dialog', { name: '设备详情' });
+  await expect(detail.getByRole('switch', { name: '电源开关' })).toBeEnabled();
+  await page.keyboard.press('Escape');
+  await navigation.getByRole('button', { name: '收藏设备', exact: true }).click();
+  await expect(page.getByRole('heading', { name: '把喜欢的设备，收藏在这里' })).toBeVisible();
+  await page.setViewportSize({ width: 360, height: 780 });
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
 test('combines search, rooms, home switching and online filtering', async ({ page }) => {
@@ -25,7 +47,7 @@ test('combines search, rooms, home switching and online filtering', async ({ pag
   await expect(page.locator('.device-card')).toHaveCount(0);
   await search.clear();
   await page.getByRole('checkbox', { name: '仅在线' }).check();
-  await expect(page.locator('.device-card')).toHaveCount(8);
+  await expect(page.locator('.device-card')).toHaveCount(11);
   await page.getByRole('checkbox', { name: '仅在线' }).uncheck();
   await page.locator('.room-chips').getByRole('button', { name: '卧室', exact: true }).click();
   await expect(page.locator('.device-card')).toHaveCount(2);
@@ -123,7 +145,7 @@ test('settings persist theme, manual refresh and hiding unsupported devices', as
   await dialog.getByRole('button', { name: '保存设置' }).click();
   await expect(dialog).not.toBeVisible();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
-  await expect(page.locator('.device-card')).toHaveCount(8);
+  await expect(page.locator('.device-card')).toHaveCount(11);
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.getByRole('button', { name: /偏好设置/ }).click();

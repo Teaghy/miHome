@@ -1,0 +1,23 @@
+.device-art {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 68px;
+  height: 68px;
+}
+.appliance-icon {
+  width: 68px;
+  height: 68px;
+  filter: drop-shadow(0 4px 3px #2435480d);
+}
+.device-art.large {
+  width: 108px;
+  height: 108px;
+  border-radius: 24px;
+  background: var(--surface-soft);
+}
+.device-art.large .appliance-icon {
+  width: 90px;
+  height: 90px;
+}

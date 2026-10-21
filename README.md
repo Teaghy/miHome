@@ -102,12 +102,15 @@ GitHub Actions 已提供 Windows 验证配置。详细验证记录见 [验证说
 
 ```text
 src/
-  App.tsx               页面、筛选与状态编排
-  components/           设备详情、扫码、设置、音箱指令与界面基础
-  bridge.ts             Tauri 命令接口与独立演示 adapter
-  demo.ts               明确标识的虚构设备数据
-  domain.ts             属性校验、筛选等纯逻辑
-  types.ts              前后端共享 JSON 契约
+  app/                  应用入口、Context 与全局弹层
+  pages/                家庭、场景、收藏与会话活动视图
+  components/           layout、devices、scenes、dialogs、ui
+  hooks/                初始化、刷新、设置与设备操作编排
+  api/                  Tauri 命令接口与独立演示 adapter
+  mocks/                明确标识的虚构设备数据
+  utils/                属性校验、筛选、设备分类与展示函数
+  types/                前后端共享 JSON 契约
+  styles/               主题、布局、组件与响应式样式
 src-tauri/
   src/                  Rust 认证、米家云端、规格、存储与 Tauri 命令
   capabilities/         本地窗口权限
@@ -115,7 +118,9 @@ scripts/                Tauri / Cargo 启动辅助脚本
 tests/e2e/              浏览器端集成测试
 ```
 
-协议变化集中在 Rust 云端模块，界面只跨越 `bridge.ts` 这一接口；演示 adapter 和真实 adapter 使用同一套类型，但不共享凭据或写请求。
+协议变化集中在 Rust 云端模块，界面通过 `src/api/mihome.ts` 调用；演示 adapter 和真实 adapter 使用同一套类型，但不共享凭据或写请求。
+
+前端目录、状态、API、依赖和验证约定见 [前端开发规范](docs/FRONTEND.md)。视觉以用户提供的 [桌面 UI 设计规范](docs/米家桌面端_UI设计规范.md) 和 [系统展示板](docs/米家全屋智能设计系统展示板.png) 为准；适配细节见 [实施规范](docs/UI_DESIGN.md)，20 个页面的路由、交互及服务边界见 [页面覆盖清单](docs/PAGE_COVERAGE.md)。AI 修改项目从 [AGENTS.md](AGENTS.md) 开始。
 
 ## 许可
 
