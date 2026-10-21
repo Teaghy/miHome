@@ -1,0 +1,29 @@
+node_modules/
+dist/
+src-tauri/target/
+.tools/
+.reference/
+test-results/
+playwright-report/
+*.tsbuildinfo
+*.log
+.env
+.env.*
+carrot-kitchen/
+src-tauri/gen/schemas/
+
+# Local account data and signing secrets
+credentials.dpapi
+auth.json
+snapshot.json
+settings.json
+*.pfx
+*.p12
+*.key
+*.pem
+
+# Generated caches and OS metadata
+__pycache__/
+*.py[cod]
+Thumbs.db
+Desktop.ini

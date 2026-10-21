@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.tools/
+.reference/
+src-tauri/target/
+carrot-kitchen/
+package-lock.json
+LICENSE
+THIRD_PARTY_NOTICES.md
