@@ -1,3 +1,4 @@
+import { Select, SelectOption } from '@/components/ui/Select';
 import type { ReactNode } from 'react';
 import {
   AudioLines,
@@ -145,26 +146,25 @@ export function DesktopShell({ children }: { children: ReactNode }) {
         <header className="topbar">
           <div className="home-selector">
             <House size={18} />
-            <select
+            <Select
               aria-label="选择家庭"
               value={currentHomeId}
               disabled={!connected || !snapshot.homes.length}
-              onChange={(event) => changeHome(event.target.value)}
+              onValueChange={(value) => changeHome(value)}
             >
               {!snapshot.homes.length ? (
-                <option value="">我的家庭</option>
+                <SelectOption value="">我的家庭</SelectOption>
               ) : (
                 <>
-                  <option value="">全部家庭</option>
+                  <SelectOption value="">全部家庭</SelectOption>
                   {snapshot.homes.map((home) => (
-                    <option value={home.id} key={home.id}>
+                    <SelectOption value={home.id} key={home.id}>
                       {home.name}
-                    </option>
+                    </SelectOption>
                   ))}
                 </>
               )}
-            </select>
-            <ChevronDown size={13} />
+            </Select>
             <span className="home-private">私人空间</span>
           </div>
           <div className="topbar-tools">

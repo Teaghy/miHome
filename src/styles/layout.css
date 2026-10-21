@@ -203,7 +203,7 @@
 .home-selector > svg:first-child {
   color: var(--subtle);
 }
-.home-selector select {
+.home-selector .ui-select {
   appearance: none;
   background: transparent;
   border: 0;

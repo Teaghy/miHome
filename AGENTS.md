@@ -19,7 +19,7 @@
 ## 完成修改时
 
 1. 根据改动更新相关文档和测试引用；移动模块时同时检查 `src`、`tests` 和配置文件。
-2. 前端改动运行 `npm run lint`、`npm run check`、`npm test`、`npm run format:check` 和 `npm run build`。
-3. 改动页面、设备控制或 API 编排时运行 `npm run test:e2e`；改动打包、样式扫描或资源路径时再运行 `npm run test:e2e:production`。
+2. 前端改动运行 `pnpm run lint`、`pnpm run check`、`pnpm test`、`pnpm run format:check` 和 `pnpm run build`。
+3. 改动页面、设备控制或 API 编排时运行 `pnpm run test:e2e`；改动打包、样式扫描或资源路径时再运行 `pnpm run test:e2e:production`。
 4. 视觉修改检查 1920×1080、1366×768、2560×1440、3840×2160，以及 390px 窄屏、主题和键盘操作。已有服务占用默认端口时，使用规范中的独立测试端口。
 5. 最终说明实际完成的检查、未验证的部分及其原因。浏览器演示或模拟原生测试通过，只能证明相应前端行为；真实账号和原生安装包需要分别验证。

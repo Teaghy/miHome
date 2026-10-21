@@ -1,3 +1,4 @@
+import { Select, SelectOption } from '@/components/ui/Select';
 import { useEffect, useState } from 'react';
 import { AppWindow, Check, Monitor, Moon, Palette, ShieldCheck, Sun } from 'lucide-react';
 import * as api from '@/api/mihome';
@@ -107,21 +108,21 @@ export function SettingsDialog({
             <strong>界面缩放</strong>
             <small>调整文字与控件的显示比例</small>
           </div>
-          <select
+          <Select
             aria-label="界面缩放"
             value={draft.scale}
-            onChange={(event) => patch('scale', Number(event.target.value))}
+            onValueChange={(value) => patch('scale', Number(value))}
           >
-            <option value={0.5}>50%</option>
-            <option value={0.75}>75%</option>
-            <option value={0.85}>85%</option>
-            <option value={1}>100% · 默认</option>
-            <option value={1.1}>110%</option>
-            <option value={1.25}>125%</option>
-            <option value={1.5}>150%</option>
-            <option value={1.75}>175%</option>
-            <option value={2}>200%</option>
-          </select>
+            <SelectOption value={0.5}>50%</SelectOption>
+            <SelectOption value={0.75}>75%</SelectOption>
+            <SelectOption value={0.85}>85%</SelectOption>
+            <SelectOption value={1}>100% · 默认</SelectOption>
+            <SelectOption value={1.1}>110%</SelectOption>
+            <SelectOption value={1.25}>125%</SelectOption>
+            <SelectOption value={1.5}>150%</SelectOption>
+            <SelectOption value={1.75}>175%</SelectOption>
+            <SelectOption value={2}>200%</SelectOption>
+          </Select>
         </div>
       </div>
       <div className="settings-section">
@@ -175,38 +176,38 @@ export function SettingsDialog({
             <strong>自动刷新间隔</strong>
             <small>只在当前会话已连接时刷新</small>
           </div>
-          <select
+          <Select
             aria-label="自动刷新间隔"
             value={draft.refreshInterval}
-            onChange={(event) => patch('refreshInterval', Number(event.target.value))}
+            onValueChange={(value) => patch('refreshInterval', Number(value))}
           >
-            <option value={0}>手动刷新</option>
-            <option value={30}>30 秒</option>
-            <option value={60}>1 分钟</option>
-            <option value={120}>2 分钟</option>
-            <option value={300}>5 分钟</option>
-          </select>
+            <SelectOption value={0}>手动刷新</SelectOption>
+            <SelectOption value={30}>30 秒</SelectOption>
+            <SelectOption value={60}>1 分钟</SelectOption>
+            <SelectOption value={120}>2 分钟</SelectOption>
+            <SelectOption value={300}>5 分钟</SelectOption>
+          </Select>
         </div>
         <div className="settings-row">
           <div>
             <strong>默认语音音箱</strong>
             <small>语音指令发送时的首选设备</small>
           </div>
-          <select
+          <Select
             aria-label="默认语音音箱"
             value={draft.defaultSpeaker || ''}
-            onChange={(event) => patch('defaultSpeaker', event.target.value || null)}
+            onValueChange={(value) => patch('defaultSpeaker', value || null)}
           >
-            <option value="">每次选择</option>
+            <SelectOption value="">每次选择</SelectOption>
             {devices
               .filter((device) => deviceKind(device) === 'speaker')
               .map((device) => (
-                <option key={device.did} value={device.did}>
+                <SelectOption key={device.did} value={device.did}>
                   {device.name}
                   {!device.online ? '（离线）' : ''}
-                </option>
+                </SelectOption>
               ))}
-          </select>
+          </Select>
         </div>
       </div>
       <div className="about-app">

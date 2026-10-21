@@ -1,3 +1,4 @@
+import { Select, SelectOption } from '@/components/ui/Select';
 import { useEffect, useState } from 'react';
 import {
   AirVent,
@@ -98,19 +99,19 @@ export function DeviceDetailPage() {
         description={`${device.homeName} / ${device.room} · ${device.online ? '设备在线' : '设备离线'}`}
         action={
           <div className="detail-page-actions">
-            <select
+            <Select
               aria-label="切换设备详情"
               value={device.did}
-              onChange={(e) => {
-                void setParams({ device: e.target.value });
+              onValueChange={(value) => {
+                void setParams({ device: value });
               }}
             >
               {homeDevices.map((d) => (
-                <option key={d.did} value={d.did}>
+                <SelectOption key={d.did} value={d.did}>
                   {d.name}
-                </option>
+                </SelectOption>
               ))}
-            </select>
+            </Select>
             <button
               className={`icon-button ${settings.favorites.includes(device.did) ? 'selected' : ''}`}
               aria-label="收藏当前设备"

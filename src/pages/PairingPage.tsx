@@ -1,3 +1,4 @@
+import { Select, SelectOption } from '@/components/ui/Select';
 import { useEffect, useState } from 'react';
 import {
   Check,
@@ -165,11 +166,13 @@ export function PairingPage() {
               </label>
               <label className="field-label">
                 <span>所属房间</span>
-                <select value={room} onChange={(e) => setRoom(e.target.value)}>
+                <Select value={room} onValueChange={(value) => setRoom(value)}>
                   {rooms.map((value) => (
-                    <option key={value}>{value}</option>
+                    <SelectOption value={value} key={value}>
+                      {value}
+                    </SelectOption>
                   ))}
-                </select>
+                </Select>
               </label>
               {error && (
                 <div role="alert" className="field-error">

@@ -1,3 +1,4 @@
+import { Select, SelectOption } from '@/components/ui/Select';
 import { useEffect, useState } from 'react';
 import { ArrowLeft, AudioLines, MessageSquareText, Send, Volume2, VolumeX } from 'lucide-react';
 import type { Device } from '@/types';
@@ -114,13 +115,13 @@ export function VoiceDialog({
         <div className="voice-fields">
           <label className="field-label">
             <span>选择音箱</span>
-            <select value={did} onChange={(event) => setDid(event.target.value)}>
+            <Select value={did} onValueChange={(value) => setDid(value)}>
               {speakers.map((speaker) => (
-                <option value={speaker.did} key={speaker.did}>
+                <SelectOption value={speaker.did} key={speaker.did}>
                   {speaker.name} · {speaker.room || speaker.homeName}
-                </option>
+                </SelectOption>
               ))}
-            </select>
+            </Select>
           </label>
           <label className="field-label">
             <span>

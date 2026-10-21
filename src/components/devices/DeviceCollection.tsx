@@ -1,8 +1,8 @@
+import { Select, SelectOption } from '@/components/ui/Select';
 import { useMiHomeContext } from '@/app/MiHomeContext';
 import {
   ArrowDownUp,
   ArrowRight,
-  Check,
   Heart,
   House,
   RefreshCw,
@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { DeviceCard } from '@/components/devices/DeviceCard';
 import { deviceKind } from '@/utils/device-kind';
+import { Checkbox } from '@/components/ui/Checkbox';
 
 import { timeLabel } from '@/utils/presentation';
 export function DeviceCollection({
@@ -79,25 +80,20 @@ export function DeviceCollection({
               </button>
             )}
             <label className={`online-filter ${onlineOnly ? 'selected' : ''}`}>
-              <input
-                type="checkbox"
+              <Checkbox
+                aria-label="仅在线"
                 checked={onlineOnly}
-                onChange={(event) => setOnlineOnly(event.target.checked)}
+                onCheckedChange={(checked) => setOnlineOnly(checked === true)}
               />
-              <span className="checkbox-art">{onlineOnly && <Check size={10} />}</span>
               仅在线
             </label>
             <label className="sort-control">
               <ArrowDownUp size={14} />
-              <select
-                aria-label="设备排序"
-                value={sort}
-                onChange={(event) => setSort(event.target.value)}
-              >
-                <option value="default">默认排序</option>
-                <option value="online">在线优先</option>
-                <option value="name">按名称</option>
-              </select>
+              <Select aria-label="设备排序" value={sort} onValueChange={(value) => setSort(value)}>
+                <SelectOption value="default">默认排序</SelectOption>
+                <SelectOption value="online">在线优先</SelectOption>
+                <SelectOption value="name">按名称</SelectOption>
+              </Select>
             </label>
           </div>
         </div>

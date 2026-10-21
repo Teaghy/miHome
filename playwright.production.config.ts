@@ -8,7 +8,7 @@ export default defineConfig({
   ...base,
   outputDir: 'test-results/production',
   webServer: {
-    command: `npx vite preview --host 127.0.0.1 --port ${port} --strictPort`,
+    command: `pnpm exec vite preview --host 127.0.0.1 --port ${port} --strictPort`,
     url: `http://127.0.0.1:${port}`,
     reuseExistingServer: false,
     timeout: 30000,

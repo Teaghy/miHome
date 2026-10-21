@@ -1,3 +1,4 @@
+import { Select, SelectOption } from '@/components/ui/Select';
 import { useState } from 'react';
 import { Bell, Check, Info, Monitor, Moon, Palette, Settings2, Sun } from 'lucide-react';
 import { useMiHomeContext } from '@/app/MiHomeContext';
@@ -73,17 +74,17 @@ export function SettingsPage() {
                 <strong>界面缩放</strong>
                 <small>调整文字与控件，适合不同尺寸的屏幕</small>
               </div>
-              <select
+              <Select
                 aria-label="界面缩放"
                 value={draft.scale}
-                onChange={(e) => patch('scale', Number(e.target.value))}
+                onValueChange={(value) => patch('scale', Number(value))}
               >
                 {[0.5, 0.75, 1, 1.25, 1.5, 1.75, 2].map((value) => (
-                  <option key={value} value={value}>
+                  <SelectOption key={value} value={value}>
                     {Math.round(value * 100)}%{value === 1 ? ' · 默认' : ''}
-                  </option>
+                  </SelectOption>
                 ))}
-              </select>
+              </Select>
             </div>
           </Panel>
           <Panel title="日常使用" action={<Settings2 size={19} />}>
@@ -133,37 +134,37 @@ export function SettingsPage() {
                 <strong>自动刷新间隔</strong>
                 <small>保持家庭设备状态及时更新</small>
               </div>
-              <select
+              <Select
                 aria-label="自动刷新间隔"
                 value={draft.refreshInterval}
-                onChange={(e) => patch('refreshInterval', Number(e.target.value))}
+                onValueChange={(value) => patch('refreshInterval', Number(value))}
               >
                 {[0, 30, 60, 120, 300].map((value) => (
-                  <option key={value} value={value}>
+                  <SelectOption key={value} value={value}>
                     {value ? `${value} 秒` : '手动刷新'}
-                  </option>
+                  </SelectOption>
                 ))}
-              </select>
+              </Select>
             </div>
             <div className="settings-row">
               <div>
                 <strong>默认语音音箱</strong>
                 <small>将小爱文字指令发送给这台设备</small>
               </div>
-              <select
+              <Select
                 aria-label="默认语音音箱"
                 value={draft.defaultSpeaker || ''}
-                onChange={(e) => patch('defaultSpeaker', e.target.value || null)}
+                onValueChange={(value) => patch('defaultSpeaker', value || null)}
               >
-                <option value="">每次选择</option>
+                <SelectOption value="">每次选择</SelectOption>
                 {homeDevices
                   .filter((d) => d.category === 'speaker')
                   .map((d) => (
-                    <option key={d.did} value={d.did}>
+                    <SelectOption key={d.did} value={d.did}>
                       {d.name}
-                    </option>
+                    </SelectOption>
                   ))}
-              </select>
+              </Select>
             </div>
           </Panel>
         </div>

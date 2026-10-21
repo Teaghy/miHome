@@ -1,3 +1,4 @@
+import { Select, SelectOption } from '@/components/ui/Select';
 import { useState } from 'react';
 import { ChevronRight, DoorOpen, Home, Mail, ShieldCheck, UserPlus, Users } from 'lucide-react';
 import { useHousehold } from '@/app/HouseholdContext';
@@ -178,19 +179,21 @@ export function FamilyPage() {
           </label>
           <label className="field-label">
             <span>成员角色</span>
-            <select value={role} onChange={(e) => setRole(e.target.value as Member['role'])}>
-              <option>家庭成员</option>
-              <option>访客</option>
-            </select>
+            <Select value={role} onValueChange={(value) => setRole(value as Member['role'])}>
+              <SelectOption value="家庭成员">家庭成员</SelectOption>
+              <SelectOption value="访客">访客</SelectOption>
+            </Select>
           </label>
           <label className="field-label">
             <span>房间权限</span>
-            <select value={scope} onChange={(e) => setScope(e.target.value)}>
-              <option>全部房间</option>
+            <Select value={scope} onValueChange={(value) => setScope(value)}>
+              <SelectOption value="全部房间">全部房间</SelectOption>
               {rooms.map((room) => (
-                <option key={room}>{room}</option>
+                <SelectOption value={room} key={room}>
+                  {room}
+                </SelectOption>
               ))}
-            </select>
+            </Select>
           </label>
           <p className="form-hint">
             <Mail size={14} />

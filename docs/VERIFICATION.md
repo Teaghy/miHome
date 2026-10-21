@@ -2,7 +2,28 @@
 
 日期：2026-10-21。Windows x64，本地 Node.js 24.19.0、Rust 1.99.1、MSVC Build Tools 2022。源码最低 Rust 版本按当前锁定依赖为 1.90。
 
-## 本轮桌面设计系统验收
+## 本轮 pnpm 迁移与表单控件验收
+
+统一使用 pnpm 10.32.1，从已有 npm 锁文件导入 `pnpm-lock.yaml`，替换 CI、Tauri 前置命令、Windows 启动/构建脚本和开发文档。19 处页面下拉改用共享 Radix Select，在线筛选改用 Radix Checkbox；文本输入和搜索框统一焦点表现。已处理全局界面缩放对 Portal 菜单定位的重复放大。
+
+| 检查                                             | 本轮结果                                                                                                           |
+| ------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| `pnpm install --frozen-lockfile`                 | 通过，锁文件与依赖一致                                                                                             |
+| lint / check / format:check / `git diff --check` | 通过                                                                                                               |
+| Vitest / Windows 启动环境                        | 22 项 / 4 项通过                                                                                                   |
+| `pnpm run test:e2e`                              | Chromium 开发模式 31 项通过，独立端口 1424                                                                         |
+| `pnpm run test:e2e:production`                   | Vite 构建及 Chromium 生产模式 31 项通过，独立端口 1426                                                             |
+| 表单交互                                         | 键盘选择/焦点返回、Checkbox 标签/空格、搜索单层焦点、弹窗内 Escape、空字符串选项保存、MIoT 枚举原始类型通过        |
+| 主题和尺寸                                       | 明暗主题下 1920×1080、1366×768、2560×1440、3840×2160、390×844；菜单位于视口内、无横向溢出；200% 缩放下弹窗选择通过 |
+| Tauri / Debug 桌面程序                           | MSVC 工具链编译成功，运行 `target/debug/mihome.exe`；确认 MiHome 主窗口显示、进程响应正常                          |
+
+本轮截图在 `test-results/development/`、`test-results/production/` 的 form-controls 用例目录。生产构建成功，主 JS 包约 532 kB（gzip 约 174 kB），触发 Vite 默认 500 kB 分包建议。本机沙箱内 Playwright 未能自动回收其 Windows 预览服务，全部用例成功后手动关闭本轮创建的服务进程，测试命令正常退出。
+
+本机默认 GNU 工具链缺少 `dlltool.exe`，本轮启动改用已安装的 `stable-x86_64-pc-windows-msvc`，未修改系统默认工具链。首次依赖下载在沙箱内遇到 Windows SSL 凭据错误，在获准的沙箱外运行后下载和 Debug 编译成功。前端服务使用 1420 端口。
+
+本轮没有使用真实账号、连接真实设备或构建/安装 Release 安装包。浏览器演示和模拟原生契约测试只证明相应前端行为；托盘、自启动、原生安装包、真实设备及 CI 远端运行仍需分别验收。下文保留此前验证记录。
+
+## 前一轮桌面设计系统验收
 
 依据用户提供的《米家桌面端 UI 设计规范》和设计展示板，完成十模块首页、其余产品页面与五类设备详情。全部页面共用浅色 Sidebar 和 `#00C9A7` 品牌色，保留真实设备与本地体验的隔离边界。
 
@@ -52,7 +73,7 @@
 | `cargo clippy --all-targets -- -D warnings` | 通过                                                                                    |
 | `cargo test --lib`                          | 27 项通过，1 项真实网络测试默认忽略                                                     |
 | 显式执行 `live_qr_begin_cancel`             | 通过：访问小米真实扫码接口，生成并取消二维码；未扫码、未保存账号凭据                    |
-| `npm run format:check`                      | 通过                                                                                    |
+| `pnpm run format:check`                     | 通过                                                                                    |
 | npm 生产依赖审计                            | 官方 registry 返回 0 vulnerabilities；不等于整个应用无安全问题                          |
 | Windows 桌面可执行文件/安装包               | 未通过：标准 Release 构建完成 Rust 编译后，在资源链接阶段被本机加密文件干扰阻断，见下节 |
 

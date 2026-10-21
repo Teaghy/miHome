@@ -15,6 +15,6 @@ MIT 原始许可：Permission is hereby granted, free of charge, to any person o
 - Tauri：MIT / Apache-2.0。
 - React、Vite、Tailwind CSS、Radix UI、qrcode.react：MIT。
 - Lucide：ISC。
-- Rust 的 reqwest、tokio、serde 等以各依赖自身许可为准；准确版本见 npm 与 Cargo 锁文件。
+- Rust 的 reqwest、tokio、serde 等以各依赖自身许可为准；准确版本见 pnpm 与 Cargo 锁文件。
 
 分发二进制时，需同时履行 GPL 的源代码提供义务，并保留本声明与 LICENSE。小米、米家、小爱及相关产品名称属于各自权利人，本项目与小米公司没有隶属、合作或官方认证关系。请遵守相关服务条款，本项目不提供任何担保。

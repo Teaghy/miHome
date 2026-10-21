@@ -198,7 +198,7 @@
   font-size: 11px;
   color: var(--muted);
 }
-select {
+.ui-select {
   border: 1px solid var(--line);
   border-radius: 5px;
   padding: 7px 9px;
@@ -206,7 +206,7 @@ select {
   font-size: 11px;
   max-width: 100%;
 }
-.property-control > select {
+.property-control > .ui-select {
   max-width: 168px;
 }
 .range-control {
@@ -350,7 +350,7 @@ select {
 .field-label textarea::placeholder {
   color: #aab4a1;
 }
-.field-label select {
+.field-label .ui-select {
   min-height: 36px;
 }
 .field-error {
@@ -469,7 +469,7 @@ select {
   margin-top: 4px;
   line-height: 1.8;
 }
-.settings-row > select {
+.settings-row > .ui-select {
   max-width: 195px;
   flex-shrink: 0;
 }

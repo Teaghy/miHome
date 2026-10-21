@@ -7,13 +7,17 @@ if errorlevel 1 (
   pause
   exit /b 1
 )
-if not exist node_modules (
-  call npm install
-  if errorlevel 1 (
-    pause
-    exit /b 1
-  )
+where pnpm >nul 2>nul
+if errorlevel 1 (
+  echo Please install pnpm 10.32.1 first. See README.md.
+  pause
+  exit /b 1
 )
-call npm run desktop:dev
+call pnpm install --frozen-lockfile
+if errorlevel 1 (
+  pause
+  exit /b 1
+)
+call pnpm run desktop:dev
 if errorlevel 1 pause
 popd

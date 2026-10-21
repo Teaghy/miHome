@@ -9,25 +9,27 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
-          cache: npm
+          cache: pnpm
       - uses: dtolnay/rust-toolchain@stable
         with:
           components: rustfmt, clippy
-      - run: npm ci
-      - run: npm run lint
-      - run: npm test
-      - run: npm run format:check
-      - run: npm run build
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run lint
+      - run: pnpm run check
+      - run: pnpm test
+      - run: pnpm run format:check
+      - run: pnpm run build
       - run: node scripts/rust.mjs fmt --all -- --check
       - run: node scripts/rust.mjs test --locked
       - run: node scripts/rust.mjs clippy --all-targets --locked -- -D warnings
-      - run: npx playwright install chromium
-      - run: npm run test:e2e
-      - run: npm run test:e2e:production
-      - run: npm run desktop:build -- --no-bundle
+      - run: pnpm exec playwright install chromium
+      - run: pnpm run test:e2e
+      - run: pnpm run test:e2e:production
+      - run: pnpm run desktop:build --no-bundle
       - uses: actions/upload-artifact@v4
         with:
           name: mihome-windows-unsigned

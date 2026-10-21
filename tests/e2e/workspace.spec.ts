@@ -5,12 +5,15 @@ test('device type, room and state filters compose without losing the room tabs',
 }) => {
   await page.goto('/#/devices');
   await page.locator('.room-chips').getByRole('button', { name: '厨房', exact: true }).click();
-  await page.getByRole('combobox', { name: '设备类型', exact: true }).selectOption('heater');
-  await page.getByRole('combobox', { name: '设备状态', exact: true }).selectOption('fault');
+  await page.getByRole('combobox', { name: '设备类型', exact: true }).click();
+  await page.getByRole('option', { name: '热水器', exact: true }).click();
+  await page.getByRole('combobox', { name: '设备状态', exact: true }).click();
+  await page.getByRole('option', { name: '异常', exact: true }).click();
   await expect(page.locator('.device-card')).toHaveCount(1);
   await expect(page.locator('.device-card')).toContainText('米家电热水器');
   await expect(page.locator('.room-chips')).toBeVisible();
-  await page.getByRole('combobox', { name: '设备状态', exact: true }).selectOption('offline');
+  await page.getByRole('combobox', { name: '设备状态', exact: true }).click();
+  await page.getByRole('option', { name: '离线', exact: true }).click();
   await expect(
     page.getByRole('heading', { name: '没有符合条件的设备', exact: true }),
   ).toBeVisible();

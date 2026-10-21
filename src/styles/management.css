@@ -49,7 +49,7 @@
   gap: 7px;
 }
 .field-label > input,
-.field-label select,
+.field-label .ui-select,
 .field-label textarea {
   border-radius: 11px;
   min-height: 40px;
@@ -60,7 +60,7 @@
   width: 100%;
 }
 .field-label > input:focus,
-.field-label select:focus,
+.field-label .ui-select:focus,
 .field-label textarea:focus {
   border-color: var(--accent);
   box-shadow: 0 0 0 3px #00c9a71a;
@@ -79,7 +79,7 @@
 .settings-row small {
   font-size: 11px;
 }
-.settings-row select {
+.settings-row .ui-select {
   border: 1px solid var(--line);
   border-radius: 9px;
   background: var(--surface-soft);

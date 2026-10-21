@@ -14,14 +14,14 @@ body {
 }
 button,
 input,
-select,
+.ui-select,
 textarea {
   font: inherit;
 }
 button,
 a,
 input,
-select,
+.ui-select,
 textarea {
   -webkit-tap-highlight-color: transparent;
 }
@@ -41,21 +41,19 @@ a {
 }
 button,
 input,
-select,
+.ui-select,
 textarea {
   outline: none;
 }
 button:focus-visible,
 a:focus-visible,
-input:focus-visible,
-select:focus-visible,
-textarea:focus-visible {
+input[type='range']:focus-visible {
   outline: 3px solid color-mix(in srgb, var(--accent), transparent 55%);
   outline-offset: 3px;
 }
 input,
 textarea,
-select {
+.ui-select {
   color: var(--ink);
 }
 button {

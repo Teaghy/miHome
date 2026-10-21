@@ -1,3 +1,4 @@
+import { Select, SelectOption } from '@/components/ui/Select';
 import { useState } from 'react';
 import {
   ArrowRight,
@@ -199,24 +200,24 @@ export function AutomationPage() {
           </label>
           <label className="field-label">
             <span>如果</span>
-            <select value={condition} onChange={(e) => setCondition(e.target.value)}>
-              <option>室内温度高于 28°C</option>
-              <option>每天 18:30</option>
-              <option>每天 07:00</option>
-              <option>离家模式开启</option>
-            </select>
+            <Select value={condition} onValueChange={(value) => setCondition(value)}>
+              <SelectOption value="室内温度高于 28°C">室内温度高于 28°C</SelectOption>
+              <SelectOption value="每天 18:30">每天 18:30</SelectOption>
+              <SelectOption value="每天 07:00">每天 07:00</SelectOption>
+              <SelectOption value="离家模式开启">离家模式开启</SelectOption>
+            </Select>
           </label>
           <label className="field-label">
             <span>那么，开启设备</span>
-            <select value={target} onChange={(e) => setTarget(e.target.value)}>
+            <Select value={target} onValueChange={(value) => setTarget(value)}>
               {homeDevices
                 .filter((d) => d.online && d.power !== null)
                 .map((d) => (
-                  <option key={d.did} value={d.did}>
+                  <SelectOption key={d.did} value={d.did}>
                     {d.name}
-                  </option>
+                  </SelectOption>
                 ))}
-            </select>
+            </Select>
           </label>
         </div>
       </Modal>

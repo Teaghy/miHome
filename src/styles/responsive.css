@@ -404,7 +404,7 @@ html {
   .home-selector > svg:first-child {
     display: none;
   }
-  .home-selector select {
+  .home-selector .ui-select {
     max-width: 120px;
     font-size: 14px;
   }
@@ -575,7 +575,7 @@ html {
   .room-chips button {
     font-size: 12px;
   }
-  .sort-control select {
+  .sort-control .ui-select {
     font-size: 10px;
   }
   .dashboard-bottom {
@@ -880,11 +880,11 @@ html {
     font-size: 10px;
     line-height: 1.8;
   }
-  .settings-row select {
+  .settings-row .ui-select {
     max-width: 132px;
     font-size: 11px;
   }
-  .detail-page-actions select {
+  .detail-page-actions .ui-select {
     max-width: 245px;
   }
   .main-device-control {

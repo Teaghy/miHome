@@ -51,7 +51,8 @@ test('combines search, rooms, home switching and online filtering', async ({ pag
   await page.getByRole('checkbox', { name: '仅在线' }).uncheck();
   await page.locator('.room-chips').getByRole('button', { name: '卧室', exact: true }).click();
   await expect(page.locator('.device-card')).toHaveCount(2);
-  await page.getByRole('combobox', { name: '选择家庭' }).selectOption('demo-studio');
+  await page.getByRole('combobox', { name: '选择家庭' }).click();
+  await page.getByRole('option', { name: '工作室', exact: true }).click();
   await expect(page.locator('.device-card')).toHaveCount(1);
   await expect(page.getByRole('heading', { name: '工作室阅读灯' })).toBeVisible();
 });
@@ -140,7 +141,8 @@ test('settings persist theme, manual refresh and hiding unsupported devices', as
   await page.getByRole('button', { name: /偏好设置/ }).click();
   const dialog = page.getByRole('dialog', { name: '偏好设置' });
   await dialog.getByRole('button', { name: '深色', exact: true }).click();
-  await dialog.getByRole('combobox', { name: '自动刷新间隔' }).selectOption('0');
+  await dialog.getByRole('combobox', { name: '自动刷新间隔' }).click();
+  await page.getByRole('option', { name: '手动刷新', exact: true }).click();
   await dialog.getByRole('switch', { name: '隐藏不支持的设备' }).click();
   await dialog.getByRole('button', { name: '保存设置' }).click();
   await expect(dialog).not.toBeVisible();
@@ -149,7 +151,7 @@ test('settings persist theme, manual refresh and hiding unsupported devices', as
   await page.reload();
   await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
   await page.getByRole('button', { name: /偏好设置/ }).click();
-  await expect(dialog.getByRole('combobox', { name: '自动刷新间隔' })).toHaveValue('0');
+  await expect(dialog.getByRole('combobox', { name: '自动刷新间隔' })).toContainText('手动刷新');
 });
 
 test('voice requires a target, text and explicit send confirmation', async ({ page }) => {
@@ -197,12 +199,13 @@ test('enumeration controls preserve typed MIoT values', async ({ page }) => {
   await page.getByRole('button', { name: '查看米家互联网空调详情', exact: true }).click();
   const sheet = page.getByRole('dialog', { name: '设备详情' });
   const mode = sheet.getByRole('combobox', { name: '运行模式', exact: true });
-  await expect(mode).toHaveValue('1');
-  await mode.selectOption({ label: '制热' });
-  await expect(mode).toHaveValue('2');
+  await expect(mode).toContainText('制冷');
+  await mode.click();
+  await page.getByRole('option', { name: '制热', exact: true }).click();
+  await expect(mode).toContainText('制热');
   await page.keyboard.press('Escape');
   await page.getByRole('button', { name: '查看米家互联网空调详情', exact: true }).click();
-  await expect(mode).toHaveValue('2');
+  await expect(mode).toContainText('制热');
 });
 
 test('browser login cannot pretend to authenticate and supports keyboard dismissal', async ({

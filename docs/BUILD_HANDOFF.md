@@ -2,13 +2,13 @@
 
 ## 当前状态
 
-源代码、前端生产构建、27 项 Rust 离线测试、21 项 TypeScript/启动脚本测试、15 项浏览器用例（分别在开发和生产模式运行）已通过。真实小米二维码生成/取消测试已通过，但没有扫码确认账号，也未操作真实设备。
+前端生产构建、26 项 TypeScript/启动脚本测试，以及开发和生产模式各 31 项浏览器测试已通过。MSVC Debug 桌面程序已编译，并确认 MiHome 主窗口显示、进程响应正常。此前 27 项 Rust 离线测试和真实小米二维码生成/取消测试的记录见验证文档；本轮未扫码确认账号或操作真实设备。
 
-**尚未产出可运行的 Windows exe 或安装包。** 标准 Tauri Release 构建在 MSVC 资源链接阶段失败；不能把通过 `cargo check` 或库测试当作桌面程序已运行的证据。
+本轮通过 `pnpm run desktop:dev` 使用已安装的 `stable-x86_64-pc-windows-msvc` 工具链，生成并运行 `src-tauri/target/debug/mihome.exe`。**Release 和安装包本轮尚未复验。** 下文保留此前 Release 在 MSVC 资源链接阶段失败的诊断，不能以 Debug 启动成功推定 Release、托盘或安装行为已通过。
 
 ## 给设备管理员的诊断摘要
 
-- 标准命令：`npm run desktop:build -- --no-bundle`。
+- 标准命令：`pnpm run desktop:build --no-bundle`。
 - 错误：`CVTRES CVT1103`，随后 `LINK LNK1123`。
 - 受影响的是 Tauri 自动生成的构建资源 `src-tauri/target/release/build/mihome-*/out/resource.lib`。
 - 观察到文件头包含 `E-SafeNet` 和 `LOCK`，资源转换工具无法按 Windows 资源格式读取。
@@ -22,14 +22,14 @@
 先重新生成受影响的构建中间文件，再在项目根目录运行：
 
 ```powershell
-npm ci
-npm test
+pnpm install --frozen-lockfile
+pnpm test
 node scripts/rust.mjs test --locked
 node scripts/rust.mjs clippy --all-targets --locked -- -D warnings
-npm run desktop:build -- --no-bundle
+pnpm run desktop:build --no-bundle
 ```
 
-成功后应检查 `src-tauri/target/release/mihome.exe`，实际启动验证 WebView2 窗口、主题、托盘显示/隐藏/退出及设置保存。之后再使用自己的米家账号扫码，按主 README 的真实设备验收步骤核实行为。安装包需要另行执行 `npm run desktop:build` 并验证安装/卸载；本项目尚未配置代码签名。
+成功后应检查 `src-tauri/target/release/mihome.exe`，实际启动验证 WebView2 窗口、主题、托盘显示/隐藏/退出及设置保存。之后再使用自己的米家账号扫码，按主 README 的真实设备验收步骤核实行为。安装包需要另行执行 `pnpm run desktop:build` 并验证安装/卸载；本项目尚未配置代码签名。
 
 如果组织允许，可以使用已提供的 [Windows CI 配置](../.github/workflows/ci.yml) 在合规的构建环境验证。**本会话没有推送代码或执行远程 CI，不能宣称 CI 已通过。** 不要上传账号凭据、应用数据、其他项目内容或本地工具链；参考项目仍须按 GPL 许可保留来源声明。
 

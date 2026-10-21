@@ -1,3 +1,4 @@
+import { Select, SelectOption } from '@/components/ui/Select';
 import { useState } from 'react';
 import { Camera, Grid2X2, Maximize2, Shield } from 'lucide-react';
 import { useHousehold } from '@/app/HouseholdContext';
@@ -27,18 +28,18 @@ export function CamerasPage() {
           </button>
         </div>
         <div className="filter-selects">
-          <select
+          <Select
             aria-label="摄像机筛选"
             value={selected}
-            onChange={(e) => setSelected(e.target.value)}
+            onValueChange={(value) => setSelected(value)}
           >
-            <option value="all">全部房间</option>
+            <SelectOption value="all">全部房间</SelectOption>
             {household?.cameras.map((c) => (
-              <option key={c.id} value={c.id}>
+              <SelectOption key={c.id} value={c.id}>
                 {c.room}
-              </option>
+              </SelectOption>
             ))}
-          </select>
+          </Select>
           <button
             className={`icon-button ${layout === 'grid' ? 'selected' : ''}`}
             aria-label="网格画面"

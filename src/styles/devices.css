@@ -46,20 +46,13 @@
   min-height: 32px;
   cursor: pointer;
 }
-.online-filter input {
-  width: 13px;
-  height: 13px;
-  margin: 0;
-}
-.checkbox-art {
-  display: none;
-}
 .sort-control {
   display: flex;
   align-items: center;
   gap: 4px;
 }
-.sort-control select {
+.sort-control .ui-select {
+  min-height: 32px;
   border: 0;
   background: none;
   font-size: 11px;
@@ -286,8 +279,8 @@
   align-items: center;
   gap: 10px;
 }
-.filter-selects select,
-.detail-page-actions select {
+.filter-selects .ui-select,
+.detail-page-actions .ui-select {
   background: var(--surface);
   border: 1px solid var(--line);
   border-radius: 10px;

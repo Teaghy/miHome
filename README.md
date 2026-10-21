@@ -6,23 +6,25 @@
 
 ![演示家庭界面](docs/images/preview.png)
 
-> **本机验证状态：** 前端可运行，Rust 测试和真实二维码生成/取消已通过；Windows 标准 Release 链接被本机 E-SafeNet 透明加密的资源文件阻断，**尚未产出可运行 exe/安装包**，托盘与安装行为也未实测。详见 [验证记录](docs/VERIFICATION.md)。没有停用安全软件或添加绕过逻辑。
+> **本机验证状态：** 前端检查已通过，MSVC Debug 桌面程序已编译并显示 MiHome 主窗口；真实账号、设备、托盘与安装行为本轮未实测。此前标准 Release 构建曾被本机资源链接问题阻断，本轮未复验 Release 或安装包。Rust 测试和真实二维码生成/取消的此前结果见 [验证记录](docs/VERIFICATION.md)。
 
 ## 快速开始
 
-前置条件：Node.js 22.12+ 或 24 LTS、Rust stable 1.90+（MSVC 工具链）、Visual Studio 2022 Build Tools「使用 C++ 的桌面开发」、Windows 10/11 的 Microsoft Edge WebView2 Runtime。
+前置条件：Node.js 22.12+ 或 24 LTS、pnpm 10.32.1、Rust stable 1.90+（MSVC 工具链）、Visual Studio 2022 Build Tools「使用 C++ 的桌面开发」、Windows 10/11 的 Microsoft Edge WebView2 Runtime。
+
+项目统一使用 pnpm，版本由 `packageManager` 固定，提交 `pnpm-lock.yaml`。首次安装 pnpm 可执行 `npm install --global pnpm@10.32.1`；已有 pnpm 时直接运行下面的命令。CI 和 Windows 启动脚本使用 `--frozen-lockfile`，确保依赖与锁文件一致。
 
 ```powershell
-npm install
-npm run desktop:dev
+pnpm install --frozen-lockfile
+pnpm run desktop:dev
 ```
 
-当前工作区中已单独安装本地 Rust 工具链到被 git 忽略的 `.tools/`；启动脚本会自动识别。正常的 Rust 安装也可以使用，无需这一目录。已有的 `carrot-kitchen/` 目录未被修改，与本客户端无关。
+启动脚本支持识别被 git 忽略的 `.tools/cargo` 本地 Rust 工具链，也支持正常的系统 Rust 安装，无需这一目录。Windows 请使用 MSVC 工具链；本机默认工具链若为 GNU，可先在当前 PowerShell 设置 `$env:RUSTUP_TOOLCHAIN = 'stable-x86_64-pc-windows-msvc'` 再启动。
 
 ### 仅体验界面
 
 ```powershell
-npm run dev
+pnpm run dev
 ```
 
 打开 `http://127.0.0.1:1420`。浏览器仅使用明确标识的演示数据，**不能登录或控制真实设备**。演示模式的开关、属性、场景、音箱指令均不会向云端发送请求。桌面版首次启动不加载演示家庭，必须扫码或主动点击「体验演示」。
@@ -30,9 +32,9 @@ npm run dev
 ### 构建 Windows 程序
 
 ```powershell
-npm run desktop:build
+pnpm run desktop:build
 # 仅生成 exe，不生成安装包
-npm run desktop:build -- --no-bundle
+pnpm run desktop:build --no-bundle
 ```
 
 输出位于 `src-tauri/target/release/`；安装包位于其 `bundle/` 子目录。未配置代码签名，Windows SmartScreen 提示并不意味着获得了官方安全认证；请审查源码和构建来源。
@@ -76,11 +78,11 @@ npm run desktop:build -- --no-bundle
 ## 验证命令
 
 ```powershell
-npm test                                      # TypeScript 纯逻辑与桥接隔离测试
-npm run build                                 # TypeScript 检查 + Vite 生产构建
-npx playwright install chromium
-npm run test:e2e                              # 开发模式浏览器回归
-npm run test:e2e:production                   # 实际生产产物回归，先停止占用 1420 的服务
+pnpm test                                      # TypeScript 纯逻辑与桥接隔离测试
+pnpm run build                                 # TypeScript 检查 + Vite 生产构建
+pnpm exec playwright install chromium
+pnpm run test:e2e                              # 开发模式浏览器回归
+pnpm run test:e2e:production                   # 实际生产产物回归，先停止占用 1420 的服务
 node scripts/rust.mjs test --lib --locked     # Rust 加密、模型、存储等测试（不链接桌面 bin）
 node scripts/rust.mjs test --locked           # 完整目标测试，需要本机资源链接环境正常
 node scripts/rust.mjs fmt --all -- --check

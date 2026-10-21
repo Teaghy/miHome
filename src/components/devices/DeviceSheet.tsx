@@ -1,3 +1,4 @@
+import { Select, SelectOption } from '@/components/ui/Select';
 import { useEffect, useState } from 'react';
 import {
   ArrowUpRight,
@@ -87,21 +88,21 @@ export function PropertyControl({
             onChange={(value) => void commit(value)}
           />
         ) : p.valueList.length > 0 ? (
-          <select
+          <Select
             aria-label={p.description || p.name}
             disabled={!online || busy}
             value={p.valueList.findIndex((option) => option.value === p.value)}
-            onChange={(event) => void commit(p.valueList[Number(event.target.value)].value)}
+            onValueChange={(value) => void commit(p.valueList[Number(value)].value)}
           >
-            <option value={-1} disabled>
+            <SelectOption value={-1} disabled>
               请选择
-            </option>
+            </SelectOption>
             {p.valueList.map((option, index) => (
-              <option key={index} value={index}>
+              <SelectOption key={index} value={index}>
                 {option.description}
-              </option>
+              </SelectOption>
             ))}
-          </select>
+          </Select>
         ) : numeric && p.range && p.range.length >= 2 ? (
           <div className="range-control">
             <div>

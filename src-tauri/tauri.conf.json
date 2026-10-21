@@ -3,7 +3,7 @@
   "productName": "MiHome",
   "version": "0.1.0",
   "identifier": "com.mihome.desktop",
-  "build": { "beforeDevCommand": "npm run dev", "devUrl": "http://127.0.0.1:1420", "beforeBuildCommand": "npm run build", "frontendDist": "../dist" },
+  "build": { "beforeDevCommand": "pnpm run dev", "devUrl": "http://127.0.0.1:1420", "beforeBuildCommand": "pnpm run build", "frontendDist": "../dist" },
   "app": {
     "windows": [{ "label": "main", "title": "MiHome", "width": 1440, "height": 940, "minWidth": 1000, "minHeight": 700 }],
     "security": { "csp": "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' asset: data: https:; connect-src ipc: http://ipc.localhost; font-src 'self' data:" }
